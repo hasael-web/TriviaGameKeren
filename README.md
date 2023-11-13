@@ -2,12 +2,14 @@
 
 ## PERATURAN KALO MAU COMMIT
 
-"Fitur: Apa yg dicommit"
-Contoh:
-"Dashboard: first commit"
+"Folder: Apa yg dicommit"
 
-Kalo Backend - bahasanya aja
-Contoh:
+Contoh:\
+"Dashboard: first commit"
+  
+Kalo yg Backend - bahasanya aja\
+
+Contoh:\
 "Golang: Apa yg dicommit"
 
-# KALO MAU INSTALL NPM JANGAN LUPA CEK FOLDER
+# KALO MAU INSTALL PACKAGE NPM JANGAN LUPA CEK FOLDER
