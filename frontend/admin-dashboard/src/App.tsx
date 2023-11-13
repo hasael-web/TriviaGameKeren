@@ -1,11 +1,13 @@
-import { Text } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { RouterProvider } from "react-router-dom";
 
-function App() {
+import routes from "./routes";
+import theme from "./utils/theme";
+
+export default function App() {
   return (
-    <>
-      <Text>Hello World</Text>
-    </>
+    <ChakraProvider theme={theme}>
+      <RouterProvider router={routes} />
+    </ChakraProvider>
   );
 }
-
-export default App;
