@@ -1,0 +1,7 @@
+{
+    "web": {
+        "redirect_uris": [
+            "http://localhost:3000/api/v1"
+        ]
+    }
+}
