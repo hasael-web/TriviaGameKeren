@@ -17,7 +17,6 @@ const user_item_detail = {
 
 export type PaymentRequestT = {
   user_order: {
-    order_id: "qq-23123-djdkjj";
     first_name: "hasael";
     last_name: "butar butar";
     email: "hasael@butar.com";

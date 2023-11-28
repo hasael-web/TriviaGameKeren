@@ -14,6 +14,7 @@ import { UserItemDetail } from "../entities/UserItemDetail";
 import { Payments } from "../entities/Payments";
 import { MidtransCallbackT } from "./types/MidtransCallbackT";
 import * as dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
 dotenv.config();
 
 export default new (class PaymentService {
@@ -28,8 +29,16 @@ export default new (class PaymentService {
       const body: PaymentRequestT = req.body;
 
       const { user_item_detail, user_order, user_id } = body;
+      const { email, first_name, last_name, phone } = user_order;
+      const order_id = uuidv4();
 
-      const { value: VUO, error: EVUO } = User_Order.validate(user_order);
+      const { value: VUO, error: EVUO } = User_Order.validate({
+        email,
+        first_name,
+        last_name,
+        phone,
+        order_id,
+      });
       if (EVUO) {
         return res.status(404).json({ status: 404, message: EVUO });
       }
@@ -58,7 +67,7 @@ export default new (class PaymentService {
 
       if (paymentResponse) {
         const UserOrderCreate = this.UserOrderRepository.create({
-          order_id: user_order.order_id,
+          order_id: order_id,
           email: user_order.email,
           first_name: user_order.first_name,
           last_name: user_order.last_name,
