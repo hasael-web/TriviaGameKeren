@@ -146,7 +146,20 @@ export default new (class PaymentService {
             .json({ status: 404, message: "order_id not found" });
         }
 
-        updateStatusOrder.status = "paid";
+        const currentDate: Date = new Date(data.expiry_time);
+        const dateNow: Date = new Date();
+
+        if (data.transaction_status === "expire") {
+          updateStatusOrder.status = "expire";
+        }
+
+        if (data.transaction_status === "capture") {
+          updateStatusOrder.status = "paid";
+        }
+
+        if (data.transaction_status === "pending") {
+          updateStatusOrder.status = "pending";
+        }
 
         await this.UserOrderRepository.save(updateStatusOrder);
         return res.status(200).json({
