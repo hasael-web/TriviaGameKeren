@@ -4,17 +4,18 @@ package protogrpc;
 option go_package = "pb/protogrpc";
 
 import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
 
 message RequestUser {
   int32 id = 1;
   string name = 2;
   string email = 3;
   string username = 4;
-  int32 diamonds = 5;
+  google.protobuf.Any diamonds = 5;
   int32 total_points = 6;
-  string email_verified_at = 7;
-  string password = 8;
-  string remember_token = 9;
+  google.protobuf.Any email_verified_at = 7;
+  google.protobuf.Any password = 8;
+  google.protobuf.Any remember_token = 9;
   string created_at = 10;
   string updated_at = 11;
   int32 current_avatar = 12;

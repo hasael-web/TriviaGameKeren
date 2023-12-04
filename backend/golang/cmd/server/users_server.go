@@ -11,11 +11,16 @@ import (
 	"log"
 	"net/http"
 	"os"
+
+	"google.golang.org/protobuf/types/known/anypb"
+	"google.golang.org/protobuf/types/known/wrapperspb"
 )
 
 type UsersServer struct {
 	usersPb.UnimplementedUsersServiceServer
 }
+
+type YourMessage struct{}
 
 func (us *UsersServer) GetUsers(ctx context.Context, in *usersPb.EmptyRequest) (*usersPb.ResponseUsers, error) {
 
@@ -32,35 +37,48 @@ func (us *UsersServer) GetUsers(ctx context.Context, in *usersPb.EmptyRequest) (
 		os.Exit(1)
 	}
 
-	// fmt.Println(string(resBody))
-
 	var data usertype.UsersResponseT
 
 	if err := json.Unmarshal(resBody, &data); err != nil {
 		log.Fatalf("cannot unmarshal data%v", err.Error())
 	}
 
-	// fmt.Println(data)
-
 	var usersResponse []*usersPb.RequestUser
 
 	for _, u := range data.Data {
 
-		// var diamonds interface{};
-
-		// if u.EmailVerifiedAt
+		// diamond
+		diamondAny, err := anypb.New(&wrapperspb.Int32Value{Value: int32(u.Diamonds)})
+		if err != nil {
+			log.Fatal(err)
+		}
+		// Remember token is null
+		rememeberTokenAny, err := anypb.New(&wrapperspb.StringValue{Value: u.RememeberToken})
+		if err != nil {
+			log.Fatal(err)
+		}
+		// password null value
+		passwordAny, err := anypb.New(&wrapperspb.StringValue{Value: u.Password})
+		if err != nil {
+			log.Fatal(err)
+		}
+		// email verified at null value
+		emailVerifiedAt, err := anypb.New(&wrapperspb.StringValue{Value: u.EmailVerifiedAt})
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		usersResponse = append(usersResponse, &usersPb.RequestUser{
 			Id:              int32(u.Id),
 			Name:            u.Name,
 			Email:           u.Email,
 			Username:        u.Username,
-			Password:        u.Password,
-			Diamonds:        u.Diamonds,
+			Password:        passwordAny,
+			Diamonds:        diamondAny,
 			TotalPoints:     u.TotalPoints,
 			CurrentAvatar:   u.CurrentAvatar,
-			RememberToken:   u.RememeberToken,
-			EmailVerifiedAt: u.EmailVerifiedAt,
+			RememberToken:   rememeberTokenAny,
+			EmailVerifiedAt: emailVerifiedAt,
 			CreatedAt:       u.CreatedAt,
 			UpdatedAt:       u.UpdatedAt,
 		})
@@ -97,6 +115,30 @@ func (us *UsersServer) GetOneUsers(ctx context.Context, in *usersPb.IdUsers) (*u
 		log.Printf("error Unmarshal data : %v", err.Error())
 	}
 
+	// diamond
+	diamondAny, err := anypb.New(&wrapperspb.Int32Value{Value: int32(data.Data.Diamonds)})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// Remember token is null
+	rememeberTokenAny, err := anypb.New(&wrapperspb.StringValue{Value: data.Data.RememeberToken})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// password null value
+	passwordAny, err := anypb.New(&wrapperspb.StringValue{Value: data.Data.Password})
+	if err != nil {
+		log.Fatal(err)
+	}
+	// email verified at null value
+	emailVerifiedAt, err := anypb.New(&wrapperspb.StringValue{Value: data.Data.EmailVerifiedAt})
+	if err != nil {
+		log.Fatal(err)
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	result := &usersPb.ResponseOneUser{
 		Code: data.Code,
 		Data: &usersPb.RequestUser{
@@ -104,12 +146,12 @@ func (us *UsersServer) GetOneUsers(ctx context.Context, in *usersPb.IdUsers) (*u
 			Name:            data.Data.Name,
 			Email:           data.Data.Email,
 			Username:        data.Data.Username,
-			Password:        data.Data.Password,
-			Diamonds:        data.Data.Diamonds,
+			Password:        passwordAny,
+			Diamonds:        diamondAny,
 			TotalPoints:     data.Data.TotalPoints,
 			CurrentAvatar:   data.Data.CurrentAvatar,
-			RememberToken:   data.Data.RememeberToken,
-			EmailVerifiedAt: data.Data.EmailVerifiedAt,
+			RememberToken:   rememeberTokenAny,
+			EmailVerifiedAt: emailVerifiedAt,
 			CreatedAt:       data.Data.CreatedAt,
 			UpdatedAt:       data.Data.UpdatedAt,
 		},
