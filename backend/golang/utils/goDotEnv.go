@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -19,7 +20,9 @@ func GoGetEnv(key string) string {
 func UrlApiValue(key string, valueApi string) string {
 	urlValue := GoGetEnv(key)
 
-	resultUrl := "api" + urlValue + valueApi
+	resultUrl := urlValue + valueApi
+
+	fmt.Println(resultUrl)
 
 	return resultUrl
 }

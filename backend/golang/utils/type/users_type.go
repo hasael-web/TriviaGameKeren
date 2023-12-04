@@ -16,8 +16,8 @@ type User struct {
 	Email           string `json:"email"`
 	Username        string `json:"username"`
 	Password        string `json:"password"`
-	Diamonds        int64  `json:"diamonds"`
-	TotalPoints     int64  `json:"total_points"`
+	Diamonds        int32  `json:"diamonds"`
+	TotalPoints     int32  `json:"total_points"`
 	EmailVerifiedAt string `json:"email_verified_at"`
 	RememeberToken  string `json:"remember_token"`
 	CreatedAt       string `json:"created_at"`

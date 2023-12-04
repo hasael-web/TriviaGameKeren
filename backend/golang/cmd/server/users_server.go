@@ -45,19 +45,24 @@ func (us *UsersServer) GetUsers(ctx context.Context, in *usersPb.EmptyRequest) (
 	var usersResponse []*usersPb.RequestUser
 
 	for _, u := range data.Data {
+
+		// var diamonds interface{};
+
+		// if u.EmailVerifiedAt
+
 		usersResponse = append(usersResponse, &usersPb.RequestUser{
-			Id:            int32(u.Id),
-			Name:          u.Name,
-			Email:         u.Email,
-			Username:      u.Username,
-			Password:      u.Password,
-			Diamonds:      u.Diamonds,
-			TotalPoints:   u.TotalPoints,
-			CurrentAvatar: u.CurrentAvatar,
-			RememberToken: u.RememeberToken,
+			Id:              int32(u.Id),
+			Name:            u.Name,
+			Email:           u.Email,
+			Username:        u.Username,
+			Password:        u.Password,
+			Diamonds:        u.Diamonds,
+			TotalPoints:     u.TotalPoints,
+			CurrentAvatar:   u.CurrentAvatar,
+			RememberToken:   u.RememeberToken,
 			EmailVerifiedAt: u.EmailVerifiedAt,
-			CreatedAt:     u.CreatedAt,
-			UpdatedAt:     u.UpdatedAt,
+			CreatedAt:       u.CreatedAt,
+			UpdatedAt:       u.UpdatedAt,
 		})
 	}
 
@@ -95,18 +100,18 @@ func (us *UsersServer) GetOneUsers(ctx context.Context, in *usersPb.IdUsers) (*u
 	result := &usersPb.ResponseOneUser{
 		Code: data.Code,
 		Data: &usersPb.RequestUser{
-			Id:            int32(data.Data.Id),
-			Name:          data.Data.Name,
-			Email:         data.Data.Email,
-			Username:      data.Data.Username,
-			Password:      data.Data.Password,
-			Diamonds:      data.Data.Diamonds,
-			TotalPoints:   data.Data.TotalPoints,
-			CurrentAvatar: data.Data.CurrentAvatar,
-			RememberToken: data.Data.RememeberToken,
+			Id:              int32(data.Data.Id),
+			Name:            data.Data.Name,
+			Email:           data.Data.Email,
+			Username:        data.Data.Username,
+			Password:        data.Data.Password,
+			Diamonds:        data.Data.Diamonds,
+			TotalPoints:     data.Data.TotalPoints,
+			CurrentAvatar:   data.Data.CurrentAvatar,
+			RememberToken:   data.Data.RememeberToken,
 			EmailVerifiedAt: data.Data.EmailVerifiedAt,
-			CreatedAt:     data.Data.CreatedAt,
-			UpdatedAt:     data.Data.UpdatedAt,
+			CreatedAt:       data.Data.CreatedAt,
+			UpdatedAt:       data.Data.UpdatedAt,
 		},
 	}
 	return result, nil

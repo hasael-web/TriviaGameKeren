@@ -10,8 +10,8 @@ message RequestUser {
   string name = 2;
   string email = 3;
   string username = 4;
-  int64 diamonds = 5;
-  int64 total_points = 6;
+  int32 diamonds = 5;
+  int32 total_points = 6;
   string email_verified_at = 7;
   string password = 8;
   string remember_token = 9;
