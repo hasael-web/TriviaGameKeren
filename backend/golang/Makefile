@@ -1,17 +1,23 @@
-# hello: callback hello-2
-# 	echo "Hello, saya adalah perintah"
+# generate questions: 
+# 	protoc --proto_path=proto --go_out=. --go-grpc_out=. --grpc-gateway_out=pb/questiongrpc proto/*.proto 
 
-# hello-2:
-# 	echo "Hello, saya adalah perintah kedua"
-# 	echo "Command kedua"
+# generate users:
+# 	protoc --proto_path=proto --go_out=. --go-grpc_out=. --grpc-gateway_out=pb/usersgrpc proto/*.proto 
 
-# callback:
-# 	echo "kamu memanggil callback"
+generate:
+	protoc -I ./proto \
+    --go_out ./pb/ --go_opt paths=source_relative \
+    --go-grpc_out ./pb/ --go-grpc_opt paths=source_relative \
+    --grpc-gateway_out ./pb/ --grpc-gateway_opt paths=source_relative \
+    proto/*.proto
 
 
-protos :
-	rm -rf pb/ 
-	protoc --proto_path=proto --go_out=. \
-	--go-grpc_out=. \
-	--grpc-gateway_out=. \
-	proto/*.proto
+server:
+	go run server.go
+
+clean: 
+	rm -r pb/*
+
+
+
+# pasming

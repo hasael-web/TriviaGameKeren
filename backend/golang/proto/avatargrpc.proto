@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package protogrpc;
+
+option go_package = "pb/protogrpc";
+
+import "google/api/annotations.proto";
+
+message AvatarRequest {
+  int32 id = 1;
+  string image_src = 2;
+  int64 price = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message AvatarsResponse {
+  int32 code = 1;
+  repeated AvatarRequest data = 2;
+}
+
+message AvatarResponseOne {
+  int32 code = 1;
+  AvatarRequest data = 2;
+}
+
+message EmptyAvatar {}
+message AvatarId { int32 id = 1; }
+
+service AvatarService {
+  rpc GetAvatars(EmptyAvatar) returns (AvatarsResponse) {
+    option (google.api.http) = {
+      get : "/api/avatars"
+    };
+  };
+  rpc GetOneAvatar(AvatarId) returns (AvatarResponseOne) {
+    option (google.api.http) = {
+      get : "/api/avatar/{id}"
+    };
+  };
+}
+
+// "id": 1,
+// "image_src":
+// "https://res.cloudinary.com/dxirtmo5t/image/upload/v1700031126/Trivia/Avatar/2023-11-15_065204_tampandanberani.jpg",
+// "price": 50,
+// "created_at": "2023-11-14T08:21:54.000000Z",
+// "updated_at": "2023-11-21T08:24:15.000000Z"

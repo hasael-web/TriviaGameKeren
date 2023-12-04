@@ -155,9 +155,6 @@ export default new (class PaymentService {
             .json({ status: 404, message: "order_id not found" });
         }
 
-        const currentDate: Date = new Date(data.expiry_time);
-        const dateNow: Date = new Date();
-
         if (data.transaction_status === "expire") {
           updateStatusOrder.status = "expire";
         }
